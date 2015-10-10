@@ -5,6 +5,10 @@ aside {
         color: $orange;
         background-color: $orange;
     }
+    .addIcon {
+        @include icon(before, add);
+        color: $lightGrey;
+    }
 
     .sourceIcon {
         color: $lightGrey;
