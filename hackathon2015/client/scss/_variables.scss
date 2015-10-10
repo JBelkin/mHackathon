@@ -1,0 +1,33 @@
+//==Imports
+
+  //Fonts
+    @include font-face('ionicon', '../assets/fonts/ionicon', null, normal, eot svg ttf woff);
+    @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+    @import url(https://fonts.googleapis.com/css?family=Gruppo);
+
+//==Colours
+
+  //General
+    $darkGrey:             #353535;
+    $lightGrey:            #D1D2D1;
+    $orange:               #DE9359;
+
+  //Text
+    $textClr:              #000000;
+    $linkClr:              #000000;
+    $linkHoverClr:         #5C5D60;
+
+  //Components
+    $headerBorderClr:      #000000;
+    $mainBorderClr:        #D1D2D1;
+
+
+//==Text
+
+  //Fonts
+    $navText:             'Gruppo', cursive;
+    $paragraphText:       'Roboto', sans-serif;
+
+  //Links
+    $linkDecoration:      'none';
+    $linkHoverDecoration: 'underline';
