@@ -8,5 +8,8 @@ aside {
 
     .sourceIcon {
         color: $lightGrey;
+        &.reddit {
+            @include icon(before, reddit);
+        }
     }
 }

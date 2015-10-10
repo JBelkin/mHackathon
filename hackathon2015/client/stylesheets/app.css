@@ -1,1 +1,35 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);@import url(https://fonts.googleapis.com/css?family=Gruppo);aside{background-color:#353535}aside .userIcon{color:#DE9359;background-color:#DE9359}aside .sourceIcon{color:#D1D2D1}
+@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+@import url(https://fonts.googleapis.com/css?family=Gruppo);
+@font-face {
+  font-family: "ionicon";
+  font-style: normal;
+  src: url("../assets/fonts/ionicon.eot?") format("eot"), url("../assets/fonts/ionicon.svg#ionicon") format("svg"), url("../assets/fonts/ionicon.ttf") format("truetype"), url("../assets/fonts/ionicon.woff") format("woff");
+}
+aside {
+  background-color: #353535;
+}
+aside .userIcon {
+  color: #DE9359;
+  background-color: #DE9359;
+}
+aside .sourceIcon {
+  color: #D1D2D1;
+}
+aside .sourceIcon.reddit:before {
+  content: "";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-family: 'Icons';
+}
+
+header {
+  font-family: "Gruppo", cursive;
+}
+
+article {
+  font-family: "Roboto", sans-serif;
+  word-break: break-all;
+  word-wrap: break-word;
+}
