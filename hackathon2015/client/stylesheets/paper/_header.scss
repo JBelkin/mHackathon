@@ -1,0 +1,46 @@
+header {
+    font-family: $navText;
+    width: 100%;
+    height: 230px;
+    position: relative;
+    text-align: center;
+
+    #time, #weather {
+        font-family: $navText;
+        position: absolute;
+        bottom: 2px;
+        font-size: 2em;
+    }
+    #time {
+        left: 120px;
+        text-align: left;
+    }
+    #weather {
+        right: 120px;
+        text-align: right;
+    }
+
+    #logo {
+        width: 100%;
+        height: 210px;
+        display: inline-block;
+        background-image: url("assets/img/logo-long.png");
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        margin-top: 20px;
+    }
+
+    &::after { //Header Border
+        padding-left: $sidebarWidth;
+        background: $headerBorderClr;
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        width: 80%;
+        height: 3px;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+    }
+}

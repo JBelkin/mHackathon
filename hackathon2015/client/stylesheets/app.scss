@@ -1,0 +1,33 @@
+//== CORE ==//
+@import '{reywood:bootstrap3-sass}/bootstrap';
+@import 'mixins';
+@import 'variables';
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    min-height: 100%;
+    height: 100%;
+}
+section[name="paper"] {
+    padding-left: $sidebarWidth;
+}
+
+a {
+    color: $linkClr;
+    text-decoration: $linkDecoration;
+
+    &:hover {
+        color: $linkHoverClr;
+        text-decoration: $linkHoverDecoration;
+    }
+}
+
+//== Components ==//
+@import 'components/sidebar';
+
+@import 'components/modal';
+
+@import 'paper/header';
+@import 'paper/tags';
+@import 'paper/article';

@@ -1,9 +1,9 @@
 //==Imports
-
   //Fonts
-    @include font-face('ionicon', '../assets/fonts/ionicon', null, normal, eot svg ttf woff);
     @import url(https://fonts.googleapis.com/css?family=Roboto:300);
     @import url(https://fonts.googleapis.com/css?family=Gruppo);
+
+
 
 //==Colours
 
@@ -31,3 +31,6 @@
   //Links
     $linkDecoration:      'none';
     $linkHoverDecoration: 'underline';
+
+//==Structure
+    $sidebarWidth:        75px;

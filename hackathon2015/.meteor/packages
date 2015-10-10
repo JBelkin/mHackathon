@@ -21,3 +21,5 @@ ecmascript
 es5-shim
 http
 meteortoys:allthings
+fourseven:scss
+reywood:bootstrap3-sass

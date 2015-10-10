@@ -1,0 +1,117 @@
+// =============================================================================
+// String Replace
+// =============================================================================
+
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+// =============================================================================
+// Font Face
+// =============================================================================
+
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+	}
+}
+
+// =============================================================================
+// Single Box Shadow
+// =============================================================================
+
+
+@mixin single-box-shadow($hoff: null, $voff: null, $blur: null, $spread: null, $color: null, $inset: false) {
+  // Handle legacy argument order
+  @if not ($hoff == none or $hoff == null) and type-of($hoff) != number {
+    @warn "The $color argument for single-box-shadow is now the 5th argument instead of the 1st.";
+    $tmp-color: $color;
+    $color: $hoff;
+    $hoff: $voff;
+    $voff: $blur;
+    $blur: $spread;
+    $spread: $tmp-color;
+  }
+  // Need to set these defaults here instead of the arglist to support the above backwards compat handling
+  @if $hoff == null {
+    $hoff: 0px;
+  }
+  @if $voff == null {
+    $hoff: 0px;
+  }
+  @if $blur == null {
+    $blur: 0px;
+  }
+  @if $spread == null {
+    $spread: 0px;
+  }
+  @if $color == null {
+    $color: black;
+  }
+  @if not ($inset == true or $inset == false or $inset == null or $inset == inset) {
+    @warn "$inset expected to be true or the inset keyword. Got #{$inset} instead. Using: inset";
+  }
+  @if $hoff == none {
+    @include box-shadow(none);
+  }
+  @else {
+    $full: $hoff $voff;
+    @if $blur {
+      $full: $full $blur;
+    }
+    @if $spread {
+      $full: $full $spread;
+    }
+    @if $color {
+      $full: $full $color;
+    }
+    @if $inset {
+      $full: inset $full;
+    }
+    @include box-shadow($full);
+  }
+}
+
+/// Text Shadow
+/// @param {Size} $x [2px] - X
+/// @param {Size} $y [2px] - Y
+/// @param {Size} $blur [2px] - Blur
+/// @param {Color} $color [rgba(0,0,0,.4)] - Color
+
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+    text-shadow: $x $y $blur $color;
+}
+
+
+@mixin border-radius($x: 20px) {
+    -moz-border-radius: $x;
+	-webkit-border-radius: $x;
+	border-radius: $x;
+}
