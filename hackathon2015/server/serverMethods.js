@@ -15,14 +15,14 @@ Meteor.methods({
 		for(child in targets){
 			var topic = targets[child];
 			console.log('Getting ' + topic + ' Json');
-			var data = HTTP.get('https://www.reddit.com/r/'+topic+'/hot.json');
 			//console.log(data.data.data.children);
-			Meteor.call('checkRedditData', topic, data.data.data.children); //send JSON to checkRedditData
+			Meteor.call('checkRedditData', topic); //send JSON to checkRedditData
 		}	
 	},
-	checkRedditData:function(topic, data) { //check against MongoDB if ID exists
-		console.log('In checkRedditData from ' + topic);
+	checkRedditData:function(topic) { //check against MongoDB if ID exists
 		this.unblock();
+		var dataQuery = HTTP.get('https://www.reddit.com/r/'+topic+'/hot.json');
+		var data = dataQuery.data.data.children;
 		var subRedditScore = 0;
 		var dataToCheck = [];
 		var dataToUpdate = [];
@@ -31,15 +31,18 @@ Meteor.methods({
 			var checkArticle = articles.find({ //Search article for matching criteria
 				$or: [
 					{ rId: data[child].data.id }, //Article unique ID from Reddit
-					{ url: data[child].data.url } //Article URL from Reddit
+					{ url: data[child].data.url }, //Article URL from Reddit
+					{ title: data[child].data.title}
 				]
 			}).count();
-			console.log(child, topic, checkArticle);
 			if(checkArticle === 0) { //No article found
 				//Check if domain is supported
 				var articleDetails = Meteor.call('getArticleDetails', data[child].data);
 				if(articleDetails != null) { //Article has description, add article details(title, text, image)
-					
+					data[child].data.title = articleDetails.headline; //Update title
+					data[child].data.previewText = articleDetails.snippet //Add preview text
+					data[child].data.preview = articleDetails.multimedia; //Update pictures
+					Meteor.call('addRedditData', topic, data[child].data); //Send to addRedditData
 				}else if(data[child].data.thumbnail == "" || data[child].data.thumbnail == null || !data[child].data.preview) { //Has no picture, Search google images using title
 					//console.log(encodeURIComponent('"'+data[child].data.title+'"'));
 					var imageJSON = HTTP.get('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' + encodeURIComponent('"'+data[child].data.title+'"'));
@@ -102,12 +105,31 @@ Meteor.methods({
 	getArticleDetails:function(article) {
 		this.unblock();
 		var supportedPlatforms = [
-			''
+			'nytimes.com'
 		];
-		if(supportedPlatforms.indexOf(article.domain)){
-			
+		if(supportedPlatforms.indexOf(article.domain) >= 0){
+			if(article.domain == "nytimes.com"){
+				var getDetail = Meteor.call('getNYTimesArticle',article.url)
+				return getDetail;
+			}
 		}else{
 			return null;
+		}
+	},
+	getNYTimesArticle:function(url){
+		try{
+		var getDetail = HTTP.get('http://api.nytimes.com/svc/search/v2/articlesearch.json?fq=web_url:("'+url+'")&api-key=f48f7a8bfe0b984e8d734f98759857d3%3A2%3A73184272')
+		//console.log(getDetail.data.response.docs);
+		//headline.main, snippet, multimedia
+		var result = {
+			headline: getDetail.data.response.docs[0].headline.main,
+			snippet: getDetail.data.response.docs[0].snippet,
+			multimedia: getDetail.data.response.docs[0].multimedia
+		};
+		return result;	
+		}catch(e){
+			return null;
+			console.log(url, e);
 		}
 	}
 });
