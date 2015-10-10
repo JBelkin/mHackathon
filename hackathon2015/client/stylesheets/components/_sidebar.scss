@@ -1,0 +1,59 @@
+$icons: (
+    reddit: "\f23b",
+    rss: "\f23d",
+    user: "\f3a0",
+    add: "\f48b"
+);
+aside {
+    background-color: $darkGrey;
+    float: left;
+    height: 100%;
+    width: $sidebarWidth;
+    position: relative;
+
+    ul {
+        list-style: none;
+        text-align: center;
+        padding: 0px;
+
+            li {
+                font-family: "Ionicons";
+                font-size: 4em;
+                display: inline-block;
+                color: $lightGrey;
+                padding: 0px;
+                &:first-child {
+                    margin-bottom: -20px;
+                }
+                &:hover {
+                    cursor: pointer;
+                    @include text-shadow(0px, 0px, 5px, rgba(255,255,255,0.5));
+                }
+            }
+    }
+
+    #tools { //lower menu items
+        position: absolute;
+        bottom: 0px;
+        .userIcon {
+            color: $orange;
+            &::before {
+                content: "\f3a0";
+            }
+        }
+        .addIcon {
+            &::before {
+                content: "\f48b";
+            }
+        }
+    }
+
+    .sourceIcon {
+        color: $lightGrey;
+        &.reddit {
+            &::before {
+                content: "\f23b";
+            }
+        }
+    }
+}
