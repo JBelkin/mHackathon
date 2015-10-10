@@ -1,0 +1,113 @@
+Meteor.methods({
+	getRedditJson:function() { //setInterval
+		this.unblock();
+		var targets = [
+			'WorldNews', 
+			'news', 
+			'science', 
+			'technology', 
+			'art', 
+			'business',
+			'gaming',
+			'politics',
+			'sports'
+		];
+		for(child in targets){
+			var topic = targets[child];
+			console.log('Getting ' + topic + ' Json');
+			var data = HTTP.get('https://www.reddit.com/r/'+topic+'/hot.json');
+			//console.log(data.data.data.children);
+			Meteor.call('checkRedditData', topic, data.data.data.children); //send JSON to checkRedditData
+		}	
+	},
+	checkRedditData:function(topic, data) { //check against MongoDB if ID exists
+		console.log('In checkRedditData from ' + topic);
+		this.unblock();
+		var subRedditScore = 0;
+		var dataToCheck = [];
+		var dataToUpdate = [];
+		for(child in data){
+			subRedditScore += data[child].data.score;//Update this subreddit's total score for our score calc later
+			var checkArticle = articles.find({ //Search article for matching criteria
+				$or: [
+					{ rId: data[child].data.id }, //Article unique ID from Reddit
+					{ url: data[child].data.url } //Article URL from Reddit
+				]
+			}).count();
+			console.log(child, topic, checkArticle);
+			if(checkArticle === 0) { //No article found
+				//Check if domain is supported
+				var articleDetails = Meteor.call('getArticleDetails', data[child].data);
+				if(articleDetails != null) { //Article has description, add article details(title, text, image)
+					
+				}else if(data[child].data.thumbnail == "" || data[child].data.thumbnail == null || !data[child].data.preview) { //Has no picture, Search google images using title
+					//console.log(encodeURIComponent('"'+data[child].data.title+'"'));
+					var imageJSON = HTTP.get('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' + encodeURIComponent('"'+data[child].data.title+'"'));
+					var parse = JSON.parse(imageJSON.content);
+					if(parse.responseData){
+						var imageUrl = parse.responseData.results[0].unescapedUrl;
+					}else{
+						var imageUrl = null
+					}
+					data[child].data.thumbnail = imageUrl;
+					Meteor.call('addRedditData', topic, data[child].data);
+				}
+			}else { //Article match was found
+				
+			}
+		}
+		//check if article id || url exists.  for loop data var. if not found add to dataToCheck else push to dataToUpdate
+		//build object with these params -> id, url, created_utc, domain, topic, title, score, subreddit_id, permalink, thumbnail, preview{}
+		//if domain = list we can parse, function get description and add to object ELSE if !thumbail || !preview then search google images with title and pull first result.
+		//score articles accordingly
+	},
+	addRedditData:function(topic, article) { //add or edit reddit data into MongoDB
+		/*
+			{
+				_id: Meteor provided
+				rId: reddit Id
+				topic:
+				title:
+				url:
+				previewText:
+				thumbnail:
+				permLink:
+				rDate:
+				domain:
+				subreddit_id:
+				preview:
+				date:
+				rScore: Reddit Score
+				score: Internal Score
+			}
+		*/
+		var articleObj = {
+			rId: article.id,
+			topic: topic,
+			title: article.title,
+			url: article.url,
+			previewText: article.previewText,
+			thumbnail: article.thumbnail,
+			permalink: article.permalink,
+			rDate: article.created_utc,
+			domain: article.domain,
+			subreddit_id: article.subreddit_id,
+			preview: article.preview,
+			date: new Date().getTime(),
+			rScore: article.score,
+			score: ''
+		};
+		articles.insert(articleObj);
+	},
+	getArticleDetails:function(article) {
+		this.unblock();
+		var supportedPlatforms = [
+			''
+		];
+		if(supportedPlatforms.indexOf(article.domain)){
+			
+		}else{
+			return null;
+		}
+	}
+});
