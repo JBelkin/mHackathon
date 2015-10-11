@@ -1,11 +1,60 @@
 <template name="paper">
-    <div id="leftCol" class="col-md-3" style="text-align:center;">
-        <h3>Left Column</h3>
+	{{#if Template.subscriptionsReady}}
+		<div id="leftCol" class="col-md-3">
+			<div class="row">
+        {{#each leftColArticle}}
+					{{#if thumbnail null}}
+						<h4>{{this.title}}</h4>
+					{{else}}
+						<img src="{{this.thumbnail}}" />
+						<h3>{{this.title}}</h3>
+					{{/if}}
+				{{/each}}
+			</div>
     </div>
-    <div id="mainCol" class="col-md-6" style="text-align:center;">
-        <h3>main Column</h3>
+    <div id="mainCol" class="col-md-6">
+			<div class="row">
+				{{> bigArticle}}
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					{{#each midLeftColArticle}}
+						{{#if thumbnail null}}
+								<h4>{{this.title}}</h4>
+						{{else}}
+							<img src="{{this.thumbnail}}" />
+							<h3>{{this.title}}</h3>
+						{{/if}}
+					{{/each}}
+				</div>
+				<div class="col-md-6">
+					{{#each midRightColArticle}}
+						{{#if thumbnail null}}
+							<h4>{{this.title}}</h4>
+						{{else}}
+							<img src="{{this.thumbnail}}" />
+							<h3>{{this.title}}</h3>
+						{{/if}}
+					{{/each}}		
+				</div>
+			</div>
     </div>
-    <div id="rightCol" class="col-md-3" style="text-align:center;">
-        <h3>right Column</h3>
+    <div id="rightCol" class="col-md-3">
+			<div class="row">
+        {{#each rightColArticle}}
+					{{#if thumbnail null}}
+						<h4>{{this.title}}</h4>
+					{{else}}
+						<img src="{{this.thumbnail}}" />
+						<h3>{{this.title}}</h3>
+					{{/if}}
+				{{/each}}      
+			</div>
     </div>
+	{{/if}}
+</template>
+
+
+<template name="bigArticle">
+	<h1>{{title}}</h1>
 </template>

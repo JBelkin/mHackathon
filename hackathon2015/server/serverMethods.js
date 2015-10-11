@@ -42,8 +42,9 @@ Meteor.methods({
 					data[child].data.title = articleDetails.headline; //Update title
 					data[child].data.previewText = articleDetails.snippet //Add preview text
 					data[child].data.preview = articleDetails.multimedia; //Update pictures
-					Meteor.call('addRedditData', topic, data[child].data); //Send to addRedditData
-				}else if(data[child].data.thumbnail == "" || data[child].data.thumbnail == null || !data[child].data.preview) { //Has no picture, Search google images using title
+					
+				}
+				if(data[child].data.thumbnail == "" || data[child].data.thumbnail == null || !data[child].data.preview) { //Has no picture, Search google images using title
 					//console.log(encodeURIComponent('"'+data[child].data.title+'"'));
 					var imageJSON = HTTP.get('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' + encodeURIComponent('"'+data[child].data.title+'"'));
 					var parse = JSON.parse(imageJSON.content);
@@ -53,8 +54,8 @@ Meteor.methods({
 						var imageUrl = null
 					}
 					data[child].data.thumbnail = imageUrl;
-					Meteor.call('addRedditData', topic, data[child].data);
 				}
+				Meteor.call('addRedditData', topic, data[child].data);
 			}else { //Article match was found
 				
 			}
@@ -89,7 +90,6 @@ Meteor.methods({
 			topic: topic,
 			title: article.title,
 			url: article.url,
-			previewText: article.previewText,
 			thumbnail: article.thumbnail,
 			permalink: article.permalink,
 			rDate: article.created_utc,
@@ -100,6 +100,7 @@ Meteor.methods({
 			rScore: article.score,
 			score: ''
 		};
+		article.previewText != null ? articleObj.previewText = article.previewText : '';
 		articles.insert(articleObj);
 	},
 	getArticleDetails:function(article) {
