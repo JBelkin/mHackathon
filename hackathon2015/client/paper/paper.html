@@ -1,15 +1,17 @@
 <template name="paper">
 	{{#if Template.subscriptionsReady}}
        <div class="col-xs-12">
-        <div class="row">
-           <article class="full-mainArticle visible-xs-inline-block visible-sm-inline-block">
-                {{> bigArticle}}
-            </article>
-        </div>
+        {{#if bigArticle}}
+            <div class="row">
+                    <article class="full-mainArticle visible-xs-inline-block visible-sm-inline-block">
+                            {{> bigArticle}}
+                    </article>
+            </div>
+        {{/if}}
 		<div id="leftCol" class="col-md-3 col-sm-9 col-xs-12">
-                {{#each leftColArticle}}
-                    {{> article}}
-                {{/each}}
+            {{#each leftColArticle}}
+                {{> article}}
+            {{/each}}
         </div>
         <div id="rightCol" class="col-md-3 col-sm-3 col-xs-12">
                 {{#each rightColArticle}}
@@ -17,11 +19,13 @@
                 {{/each}}
         </div>
         <div id="mainCol" class="col-md-6 col-sm-9 col-xs-12">
-            <div class="row">
-                <article id="bigArticle" class="well well-sm visible-md-inline-block visible-lg-inline-block">
-                    {{> bigArticle}}
-                </article>
-            </div>
+            {{#if bigArticle}}
+                <div class="row">
+                    <article id="bigArticle" class="well well-sm visible-md-inline-block visible-lg-inline-block">
+                            {{> bigArticle}}
+                    </article>
+                </div>
+            {{/if}}
 			<div class="row">
 				<div class="col-md-6 col-sm-12 col-xs-12">
 					{{#each midLeftColArticle}}
