@@ -7,6 +7,45 @@ articleSort = {
 };
 mainArticle = {};
 sections = 0;
+var topics = {
+  'WorldNews':{
+    icon:'ion-earth',
+    displayName:"World News"
+  },
+  'news':{
+    icon:'ion-ios-paper-outline',
+    displayName:"News"
+  },
+  'science':{
+    icon:'ion-erlenmeyer-flask',
+    displayName:"Science"
+  },
+  'technology':{
+    icon:'ion-monitor',
+    displayName:"Technology"
+  },
+  'art':{
+    icon:'ion-paintbrush',
+    displayName:"Art"
+  },
+  'business':{
+    icon:'ion-ios-people-outline',
+    displayName:"Business"
+  },
+  'gaming':{
+    icon:'ion-ios-game-controller-b-outline',
+    displayName:"Gaming"
+  },
+  'politics':{
+    icon:'ion-speakerphone',
+    displayName:"Politics"
+  },
+  'sports':{
+    icon:'ion-ios-baseball-outline',
+    displayName:"Sports"
+  }
+}
+Session.set('topics',topics);
 Template.paper.onCreated(function () {
 
 });
@@ -33,10 +72,23 @@ Template.paper.onRendered(function () {
       }
     });
     Session.set('mainArticle', BA);
-		if(BA){
-    	articleLoaded.push(BA.rId);
-		}
-    var data = articles.find({},{sort: { score : -1 }, reactive: true}).fetch();
+    if(BA){
+      articleLoaded.push(BA.rId);
+    }
+    var param = {}
+    var y = Session.get('tagFilter');
+    if(y){
+      param.topic = y;
+    }
+    var data = articles.find(
+      param,
+      {sort:
+        {
+          score : -1 
+        },
+        reactive: true
+      }
+    ).fetch();
     for (child in data) {
       if (articleLoaded.indexOf(data[child].rId) < 0) {
         articleLoaded.push(data[child].rId)
@@ -63,16 +115,64 @@ Template.paper.onRendered(function () {
 
 Template.paper.helpers({
   leftColArticle: function () {
-    return Session.get('articles').leftCol;
+    var y = Session.get('tagFilter');
+    if(y){
+      var a = Session.get('articles').leftCol;
+      var x = [];
+      for(child in a){
+        if(a[child].topic == y){
+          x.push(a[child]); 
+        }
+      }
+      return x;
+    }else{
+      return Session.get('articles').leftCol;
+    }
   },
   midLeftColArticle: function () {
-    return Session.get('articles').midLeftCol;
+    var y = Session.get('tagFilter');
+    if(y){
+      var a = Session.get('articles').midLeftCol;
+      var x = [];
+      for(child in a){
+        if(a[child].topic == y){
+          x.push(a[child]); 
+        }
+      }
+      return x;
+    }else{
+      return Session.get('articles').midLeftCol;
+    }
   },
   midRightColArticle: function () {
-    return Session.get('articles').midRightCol;
+    var y = Session.get('tagFilter');
+    if(y){
+      var a = Session.get('articles').midRightCol;
+      var x = [];
+      for(child in a){
+        if(a[child].topic == y){
+          x.push(a[child]); 
+        }
+      }
+      return x;
+    }else{
+      return Session.get('articles').midRightCol;
+    }
   },
   rightColArticle: function () {
-    return Session.get('articles').rightCol;
+    var y = Session.get('tagFilter');
+    if(y){
+      var a = Session.get('articles').rightCol;
+      var x = [];
+      for(child in a){
+        if(a[child].topic == y){
+          x.push(a[child]); 
+        }
+      }
+      return x;
+    }else{
+      return Session.get('articles').rightCol;
+    }
   },
   score: function(){
     var s = this.score;
@@ -87,17 +187,7 @@ Template.paper.helpers({
     return fs;
   },
   topic: function(){
-    var topics = {
-      'WorldNews':'ion-earth',
-      'news':'ion-ios-paper-outline',
-      'science':'ion-erlenmeyer-flask',
-      'technology':'ion-monitor',
-      'art':'ion-paintbrush',
-      'business':'ion-ios-people-outline',
-      'gaming':'ion-ios-game-controller-b-outline',
-      'politics':'ion-speakerphone',
-      'sports':'ion-ios-baseball-outline'
-    }
+    var topics = Session.get('topics');
     return topics[this.topic];
   }
 });

@@ -1,10 +1,11 @@
 <template name="nav">
-    <nav>
-        <ul>
-            <li class="tag"><a href="#">Tag1</a></li>
-            <li class="tag"><a href="#">Tag1</a></li>
-            <li class="tag"><a href="#">Tag1</a></li>
-            <li class="tag"><a href="#">Tag1</a></li>
-        </ul>
-    </nav>
+  <nav>
+    <ul>
+      {{#each tags}}
+        <li class="tag">
+          <a href="#" class="{{this.filterName}}">{{this.displayName}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </nav>
 </template>
