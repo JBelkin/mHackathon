@@ -131,5 +131,10 @@ Meteor.methods({
 			return null;
 			console.log(url, e);
 		}
+	},
+	reverseGeolocation:function(position){
+		console.log(position);
+		var location = HTTP.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&key=AIzaSyCqxVnIfQ6Hl3iFMovKcyHL4t99ZNdJvbo');
+		return location;
 	}
 });
