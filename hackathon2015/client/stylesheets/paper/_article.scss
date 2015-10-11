@@ -2,4 +2,8 @@ article {
     font-family: $paragraphText;
     word-break: break-all;
     word-wrap: break-word;
+
+    .articleThumb {
+        max-height: 200px;
+    }
 }

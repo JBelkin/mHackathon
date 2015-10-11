@@ -70,5 +70,15 @@ Template.bigArticle.helpers({
 		if(Session.get('mainArticle')){
 			return Session.get('mainArticle').title;
 		}
-	}
+	},
+    thumbnail:function(){
+		if(Session.get('mainArticle')){
+			return Session.get('mainArticle').thumbnail;
+		}
+	},
+    previewText:function (){
+		if(Session.get('mainArticle')){
+			return Session.get('mainArticle').previewText;
+		}
+    }
 })

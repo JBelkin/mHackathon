@@ -11,7 +11,7 @@ Template.header.onRendered(function() {
         navigator.geolocation.getCurrentPosition(showWeather);
 	}
 	function showWeather(position) {
-		console.log(position);
+		//console.log(position);
 		var newPos = {
 			latitude: position.coords.latitude,
 			longitude: position.coords.longitude
