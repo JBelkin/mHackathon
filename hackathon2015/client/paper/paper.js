@@ -34,8 +34,7 @@ Template.paper.onRendered(function () {
     });
     Session.set('mainArticle', BA);
     articleLoaded.push(BA.rId);
-    var data = articles.find().fetch();
-		data = data.reverse();
+    var data = articles.find({},{sort: { score : -1 }}).fetch();
     for (child in data) {
       if (articleLoaded.indexOf(data[child].rId) < 0) {
         articleLoaded.push(data[child].rId)
@@ -53,7 +52,7 @@ Template.paper.onRendered(function () {
         fs = ss[child]; 
       }
     }
-    Session.set('scoreDivider', fs/12)
+    Session.set('scoreDivider', fs/10)
   });
 
 
