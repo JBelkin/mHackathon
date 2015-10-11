@@ -1,31 +1,40 @@
 <template name="paper">
 	{{#if Template.subscriptionsReady}}
-		<div id="leftCol" class="col-md-3">
+       <div class="col-xs-12">
+        <div class="row">
+           <article class="full-mainArticle visible-xs-inline-block visible-sm-inline-block">
+                {{> bigArticle}}
+            </article>
+        </div>
+		<div id="leftCol" class="col-md-3 col-sm-9 col-xs-12">
                 {{#each leftColArticle}}
                     {{> article}}
                 {{/each}}
         </div>
-        <div id="mainCol" class="col-md-6">
+        <div id="rightCol" class="col-md-3 col-sm-3 col-xs-12">
+                {{#each rightColArticle}}
+                    {{> article}}
+                {{/each}}
+        </div>
+        <div id="mainCol" class="col-md-6 col-sm-9 col-xs-12">
+            <div class="row">
+                <article id="bigArticle" class="well well-sm visible-md-inline-block visible-lg-inline-block">
+                    {{> bigArticle}}
+                </article>
+            </div>
 			<div class="row">
-				{{> bigArticle}}
-			</div>
-			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-6 col-sm-12 col-xs-12">
 					{{#each midLeftColArticle}}
                         {{> article}}
                     {{/each}}
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6 col-sm-12 col-xs-12">
 					{{#each midRightColArticle}}
                         {{> article}}
                     {{/each}}
 				</div>
 			</div>
         </div>
-        <div id="rightCol" class="col-md-3">
-                {{#each rightColArticle}}
-                    {{> article}}
-                {{/each}}
         </div>
 	{{/if}}
 </template>
@@ -45,7 +54,6 @@
 </template>
 
 <template name="bigArticle">
-    <article id="bigArticle" class="well well-sm">
         <div class="heat" data-heat=9></div>
         <img id="baThumb" src="{{thumbnail}}"/>
         <h1 class="title"><a href="{{url}}">{{title}}</a></h1>
@@ -53,5 +61,4 @@
         <p class="previewText">{{previewText}}</p>
         <small class="timeAgo">{{timeLive}}</small>
         <div class="clearfix"></div>
-	</article>
 </template>
