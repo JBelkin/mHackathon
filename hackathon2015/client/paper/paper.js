@@ -35,6 +35,7 @@ Template.paper.onRendered(function () {
     Session.set('mainArticle', BA);
     articleLoaded.push(BA.rId);
     var data = articles.find().fetch();
+		data = data.reverse();
     for (child in data) {
       if (articleLoaded.indexOf(data[child].rId) < 0) {
         articleLoaded.push(data[child].rId)
