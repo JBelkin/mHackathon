@@ -12,10 +12,21 @@ Template.header.onRendered(function() {
 	}
 	function showWeather(position) {
 		console.log(position);
-		//https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key=API_KEY
-		//var location = Meteor.call('reverseGeolocation', position)
+		var newPos = {
+			latitude: position.coords.latitude,
+			longitude: position.coords.longitude
+		}
+		Meteor.call('parseWeather', newPos, function(e, s) {
+			var saveTime = s.data.current_observation;
+			var weather = saveTime.temp_f + '° F/' + saveTime.temp_c + '° C - ' + saveTime.weather;
+			Session.set('weather', weather);
+		});	
 		Meteor.setInterval(function() {
-			
+			Meteor.call('parseWeather', newPos, function(e, s) {
+				var saveTime = s.data.current_observation;
+				var weather = saveTime.temp_f + '/' + saveTime.temp_c + ' ' + saveTime.weather;
+				Session.set('weather', weather);
+			});	
 		}, 60000);
 	}
 		
@@ -27,7 +38,12 @@ Template.header.helpers({
 		//return '00:00, 6th October 2015';
 	},
 	getWeather:function(){
-		return '69° Light Rain';
+		if(Session.get('weather')){
+			return Session.get('weather');
+		}else{
+			
+		}
+		
 	}
 });
 

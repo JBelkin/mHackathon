@@ -132,9 +132,10 @@ Meteor.methods({
 			console.log(url, e);
 		}
 	},
-	reverseGeolocation:function(position){
-		console.log(position);
-		var location = HTTP.get('https://maps.googleapis.com/maps/api/geocode/json?latlng='+position.coords.latitude+','+position.coords.longitude+'&key=AIzaSyCqxVnIfQ6Hl3iFMovKcyHL4t99ZNdJvbo');
-		return location;
+	parseWeather:function(position){
+		var getGeo = HTTP.get('http://api.wunderground.com/api/299167114644cf06/geolookup/q/'+position.latitude+','+position.longitude+'.json');
+		var trimGeo = getGeo.data.location.requesturl.split('.');
+		var result = HTTP.get('http://api.wunderground.com/api/299167114644cf06/conditions/q/'+trimGeo[0]+'.json')
+		return result;
 	}
 });
