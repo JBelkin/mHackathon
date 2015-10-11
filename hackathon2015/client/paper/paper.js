@@ -71,11 +71,6 @@ Template.paper.helpers({
   rightColArticle: function () {
     return Session.get('articles').rightCol;
   },
-  thumbnail: function () {
-    if (this.thumbnail == null) {
-      return true;
-    }
-  },
   score: function(){
     var s = this.score;
     var d = Session.get('scoreDivider');
@@ -117,4 +112,12 @@ Template.bigArticle.helpers({
   timeLive: function(){
     var h = Math.round(((this.date)/60)/60); 
   }
-})
+});
+
+Template.article.helpers({
+  thumbnail: function () {
+    if (this.thumbnail == null) {
+      return true;
+    }
+  }
+});
