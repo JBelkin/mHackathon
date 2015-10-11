@@ -1,9 +1,102 @@
 article {
     font-family: $paragraphText;
-    word-break: break-all;
-    word-wrap: break-word;
+    word-break: keep-all;
+    word-wrap: normal;
+    text-align: left;
+    word-wrap: normal;
+    @include border-radius(0px);
+
+    .previewText {
+        font-family: $paragraphText;
+        margin-top: 25px;
+    }
 
     .articleThumb {
-        max-height: 200px;
+        float: left;
+        height: 125px;
+        width: 125px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border: 5px solid $orange;
+        padding: 5px;
+        display: inline-block;
+        @include border-radius(50%);
+    }
+    .heat {
+        background-image: url("assets/img/heat.png");
+        background-size: cover;
+        $size: 25px;
+        height: $size;
+        width: $size;
+        float: right;
+    }
+    .heat-2 {
+        background-position: 0px 11%;
+    }
+    .heat-3 {
+        background-position: 0px 22%;
+    }
+    .heat-4 {
+        background-position: 0px 34%;
+    }
+    .heat-5 {
+        background-position: 0px 46%;
+    }
+    .heat-6 {
+        background-position: 0px 56%;
+    }
+    .heat-7 {
+        background-position: 0px 68%;
+    }
+    .heat-8 {
+        background-position: 0px 79%;
+    }
+    .heat-9 {
+        background-position: 0px 89%;
+    }
+    .heat-10 {
+        background-position: 0px 100%;
+    }
+}
+
+#bigArticle {
+    border-top-left-radius: 0% !important;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+
+    border-bottom: 2px solid $mainBorderClr;
+
+    .title {
+        font-family: $navText;
+        font-weight: bolder;
+        margin-top: 0px;
+    }
+
+    #baThumb {
+        float: right;
+        max-height: 300px;
+        min-width: 300px;
+        height: 300px;
+        width: 40%;
+        display: block;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+}
+
+#leftCol {
+    article {
+        /*border-right: 2px solid $mainBorderClr;
+        border-bottom: 2px solid $mainBorderClr;
+        padding: 0px 5px 5px 0px;*/
+    }
+}
+#rightCol {
+    article {
+        /*border-left: 2px solid $mainBorderClr;
+        border-bottom: 2px solid $mainBorderClr;
+        padding: 0px 0px 5px 5px;*/
     }
 }

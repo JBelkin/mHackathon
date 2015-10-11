@@ -111,9 +111,9 @@
 
 
 @mixin border-radius($x: 20px) {
-    -moz-border-radius: $x;
-	-webkit-border-radius: $x;
-	border-radius: $x;
+    -moz-border-radius: $x !important;
+	-webkit-border-radius: $x !important;
+	border-radius: $x !important;
 }
 
 

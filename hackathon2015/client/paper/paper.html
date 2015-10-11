@@ -2,12 +2,14 @@
 	{{#if Template.subscriptionsReady}}
 		<div id="leftCol" class="col-md-3">
                 {{#each leftColArticle}}
-                    <article>
+                    <article class="well well-sm">
+                       <div class="heat heat-2"></div>
                         {{#if thumbnail null}}
-                            <h4>{{this.title}}</h4>
+                            <h4 class="title">{{this.title}}</h4>
                         {{else}}
-                            <img class="articleThumb" src="{{this.thumbnail}}" />
-                            <p>{{this.title}}</p>
+                            <div class="articleThumb" style="background-image: url({{this.thumbnail}});"></div>
+                            <p class="title">{{this.title}}</p>
+                                <div class="clearfix"></div>
                         {{/if}}
                     </article>
                 {{/each}}
@@ -19,24 +21,28 @@
 			<div class="row">
 				<div class="col-md-6">
 					{{#each midLeftColArticle}}
-                        <article>
+                        <article  class="well well-sm">
+                       <div class="heat heat-2"></div>
                             {{#if thumbnail null}}
-                                <h4>{{this.title}}</h4>
+                                <h4  class="title">{{this.title}}</h4>
                             {{else}}
-                                <img class="articleThumb" src="{{this.thumbnail}}" />
-                                <p>{{this.title}}</p>
+                            <div class="articleThumb" style="background-image: url({{this.thumbnail}});"></div>
+                                <p class="title">{{this.title}}</p>
+                                <div class="clearfix"></div>
                             {{/if}}
                         </article>
                     {{/each}}
 				</div>
 				<div class="col-md-6">
 					{{#each midRightColArticle}}
-                        <article>
+                        <article  class="well well-sm">
+                       <div class="heat heat-4"></div>
                             {{#if thumbnail null}}
-                                <h4>{{this.title}}</h4>
+                                <h4  class="title">{{this.title}}</h4>
                             {{else}}
-                                <img class="articleThumb" src="{{this.thumbnail}}" />
-                                <p>{{this.title}}</p>
+                            <div class="articleThumb" style="background-image:url({{this.thumbnail}});"></div>
+                                <p class="title">{{this.title}}</p>
+                                <div class="clearfix"></div>
                             {{/if}}
                         </article>
                     {{/each}}
@@ -45,12 +51,15 @@
         </div>
         <div id="rightCol" class="col-md-3">
                 {{#each rightColArticle}}
-                    <article>
+                    <article  class="well well-sm">
+                       <div class="heat heat-3"></div>
                         {{#if thumbnail null}}
-                            <h4>{{this.title}}</h4>
+                            <h4  class="title">{{this.title}}</h4>
                         {{else}}
-                            <img class="articleThumb" src="{{this.thumbnail}}" />
-                            <p>{{this.title}}</p>
+                            <div class="articleThumb" style="background-image: url({{this.thumbnail}});"></div>
+                            <p class="previewText">{{this.title}}</p>
+                                <div class="clearfix"></div>
+
                         {{/if}}
                     </article>
                 {{/each}}
@@ -60,7 +69,11 @@
 
 
 <template name="bigArticle">
-	<img id="baThumb" src="{{thumbnail}}">
-	<h1>{{title}}</h1>
-	<p>{{previewText}}</p>
+    <article id="bigArticle" class="well well-lg">
+        <div class="heat" data-heat=0></div>
+        <div id="baThumb" style="background-image: url({{thumbnail}});"></div>
+        <h1 class="title">{{title}}</h1>
+        <p class="previewText">{{previewText}}</p>
+        <div class="clearfix"></div>
+	</article>
 </template>
