@@ -16,16 +16,16 @@ nav {
                 font-size: 2.4em;
             }
 
-            &::after {
+            &+li:before {
                 content: "";
-                padding: 3px 0px 0px 3px;
+                padding: 3px 3px 0px 0px;
                 width: 10px;
                 height: 10px;
                 background-color: $textClr;
                 @include border-radius(50%);
                 position: absolute;
                 margin-top: 20px;
-                margin-left: 10px;
+                margin-left: -15px;
 
                 &:last-child {
                     content: "";
