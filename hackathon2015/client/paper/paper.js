@@ -87,6 +87,9 @@ Template.paper.helpers({
     }
     fs = Math.floor(fs);
     return fs;
+  },
+  timeLive: function(){
+    return Math.round(((this.date)/60)/60); 
   }
 });
 
@@ -110,5 +113,8 @@ Template.bigArticle.helpers({
     if (Session.get('mainArticle')) {
       return Session.get('mainArticle').previewText;
     }
+  },
+  timeLive: function(){
+    var h = Math.round(((this.date)/60)/60); 
   }
 })
