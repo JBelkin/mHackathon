@@ -24,7 +24,7 @@ Template.header.onRendered(function() {
 		Meteor.setInterval(function() {
 			Meteor.call('parseWeather', newPos, function(e, s) {
 				var saveTime = s.data.current_observation;
-				var weather = saveTime.temp_f + '/' + saveTime.temp_c + ' ' + saveTime.weather;
+				var weather = saveTime.temp_f + '° F/' + saveTime.temp_c + '° C - ' + saveTime.weather;
 				Session.set('weather', weather);
 			});	
 		}, 60000);
