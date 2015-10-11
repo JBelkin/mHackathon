@@ -9,7 +9,7 @@ aside {
     float: left;
     height: 100%;
     width: $sidebarWidth;
-    position: relative;
+    position: fixed;
 
     ul {
         list-style: none;
