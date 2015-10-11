@@ -99,6 +99,11 @@ Template.bigArticle.helpers({
       return Session.get('mainArticle').title;
     }
   },
+  url:function() {
+      if(Session.get('mainArticle')){
+        return Session.get('mainArticle').url;
+      }
+  },
   thumbnail: function () {
     if (Session.get('mainArticle')) {
       return Session.get('mainArticle').thumbnail;
@@ -110,7 +115,19 @@ Template.bigArticle.helpers({
     }
   },
   timeLive: function(){
-    var h = Math.round(((this.date)/60)/60); 
+    if (Session.get('mainArticle')) {
+      return Math.round(((Session.get('mainArticle').date)/60)/60);
+    }
+  },
+  topic: function(){
+    if (Session.get('mainArticle')) {
+      return Session.get('mainArticle').topic;
+    }
+  },
+  domain:function(){
+    if (Session.get('mainArticle')) {
+      return Session.get('mainArticle').domain;
+    }
   }
 });
 
