@@ -24,39 +24,40 @@ article {
         @include border-radius(50%);
     }
     .heat {
-        background-image: url("assets/img/heat.png");
-        background-size: cover;
+        mask: url("assets/img/heat.png");
+        -webkit-mask: url("assets/img/heat.png") top left / cover;
         $size: 25px;
         height: $size;
         width: $size;
+        background-color: $orange;
         float: right;
     }
     .heat-8 {
-        background-position: 0px 11%;
+        background-color: darken($orange, 10);
     }
     .heat-7 {
-        background-position: 0px 22%;
+        background-color: darken($orange, 20);
     }
     .heat-6 {
-        background-position: 0px 34%;
+        background-color: darken($orange, 30);
     }
     .heat-5 {
-        background-position: 0px 46%;
+        background-color: darken($orange, 40);
     }
     .heat-4 {
-        background-position: 0px 56%;
+        background-color: darken($orange, 50);
     }
     .heat-3 {
-        background-position: 0px 68%;
+        background-color: darken($orange, 60);
     }
     .heat-2 {
-        background-position: 0px 79%;
+        background-color: darken($orange, 70);
     }
     .heat-1 {
-        background-position: 0px 89%;
+        background-color: darken($orange, 80);
     }
     .heat-0 {
-        background-position: 0px 100%;
+        background-color: darken($orange, 90);
     }
 }
 
