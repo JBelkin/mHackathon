@@ -85,6 +85,20 @@ Template.paper.helpers({
     }
     fs = Math.floor(fs);
     return fs;
+  },
+  topic: function(){
+    var topics = {
+      'WorldNews':'ion-earth',
+      'news':'ion-ios-paper-outline',
+      'science':'ion-erlenmeyer-flask',
+      'technology':'ion-monitor',
+      'art':'ion-paintbrush',
+      'business':'ion-ios-people-outline',
+      'gaming':'ion-ios-game-controller-b-outline',
+      'politics':'ion-speakerphone',
+      'sports':'ion-ios-baseball-outline'
+    }
+    return topics[this.topic];
   }
 });
 
