@@ -83,8 +83,8 @@ Meteor.methods({
     var s = 0;
     //manipulate heat: Check time live
     var ts = new Date().getTime();
-    var td = ts - postTimestamp;
-    var h = Math.round(((td)/60)/60);
+    var td = ts - (postTimestamp * 1000);
+    var h = Math.round(((td/1000)/60)/60);
     if( h <= 5 ){
       s += 5;
     }else if(h <= 10){

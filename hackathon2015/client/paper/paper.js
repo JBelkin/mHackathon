@@ -84,7 +84,8 @@ Template.paper.helpers({
     return fs;
   },
   timeLive: function(){
-    return Math.round(((this.date)/60)/60); 
+    var td = new Date().getTime() - (this.date * 1000);
+    return Math.round(((td/1000)/60)/60);
   }
 });
 
@@ -116,7 +117,8 @@ Template.bigArticle.helpers({
   },
   timeLive: function(){
     if (Session.get('mainArticle')) {
-      return Math.round(((Session.get('mainArticle').date)/60)/60);
+      var td = new Date().getTime() - (Session.get('mainArticle').date * 1000);
+      return Math.round(((td/1000)/60)/60);
     }
   },
   topic: function(){
