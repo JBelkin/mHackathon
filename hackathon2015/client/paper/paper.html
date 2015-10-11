@@ -33,24 +33,25 @@
 <template name="article">
     <article class="well well-sm">
        <div class="heat heat-{{this.score}}"></div>
-        {{#if thumbnail null}}
-            <h4 class="title"><a href="{{this.url}}">{{this.title}}</a></h4>
-        {{else}}
-            <div class="articleThumb" style="background-image: url({{this.thumbnail}});"></div>
-        <p class="title"><a href="{{this.url}}">{{this.title}}</a></p>
+            {{#if thumbnail null}}
+                <h4 class="title"><a href="{{this.url}}">{{this.title}}</a></h4>
+            {{else}}
+                <div class="articleThumb" style="background-image: url({{this.thumbnail}});"></div>
+                <p class="title"><a href="{{this.url}}">{{this.title}}</a></p>
+                <small class="timeAgo">{{this.date}}</small>
                 <div class="clearfix"></div>
-        {{/if}}
+            {{/if}}
     </article>
 </template>
 
 <template name="bigArticle">
-    <article id="bigArticle" class="well well-lg">
+    <article id="bigArticle" class="well well-sm">
         <div class="heat" data-heat=9></div>
         <div id="baThumb" style="background-image: url({{thumbnail}});"></div>
         <h1 class="title"><a href="{{url}}">{{title}}</a></h1>
         <small class="pullRight">{{domain}}</small>
         <p class="previewText">{{previewText}}</p>
-        <small>{{timeLive}}</small>
+        <small class="timeAgo">{{timeLive}}</small>
         <div class="clearfix"></div>
 	</article>
 </template>

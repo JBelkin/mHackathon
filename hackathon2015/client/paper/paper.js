@@ -34,10 +34,11 @@ Template.paper.onRendered(function () {
     });
     Session.set('mainArticle', BA);
     articleLoaded.push(BA.rId);
-    var data = articles.find({},{sort: { score : -1 }}).fetch();
+    var data = articles.find({},{sort: { score : -1 }, reactive: true}).fetch();
     for (child in data) {
       if (articleLoaded.indexOf(data[child].rId) < 0) {
         articleLoaded.push(data[child].rId)
+        data[child].date = moment(data[child].date).fromNow();
         articleSort[colArray[count]].push(data[child]);
         ss.push(data[child].score);
         count++;
@@ -117,8 +118,7 @@ Template.bigArticle.helpers({
   },
   timeLive: function(){
     if (Session.get('mainArticle')) {
-      var td = new Date().getTime() - (Session.get('mainArticle').date * 1000);
-      return Math.round(((td/1000)/60)/60);
+      return moment(Session.get('mainArticle').date).fromNow();
     }
   },
   topic: function(){

@@ -4,8 +4,14 @@ article {
     word-wrap: normal;
     text-align: left;
     word-wrap: normal;
+    position: relative;
     @include border-radius(0px);
 
+    .timeAgo {
+        position: absolute;
+        bottom: 3px;
+        right: 3px;
+    }
     .previewText {
         font-family: $paragraphText;
         margin-top: 25px;
