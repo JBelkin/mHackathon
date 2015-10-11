@@ -83,10 +83,6 @@ Template.paper.helpers({
     }
     fs = Math.floor(fs);
     return fs;
-  },
-  timeLive: function(){
-    var td = new Date().getTime() - (this.date * 1000);
-    return Math.round(((td/1000)/60)/60);
   }
 });
 
