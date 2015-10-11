@@ -4,31 +4,41 @@ header {
     height: 230px;
     position: relative;
     text-align: center;
+    background-image: url("assets/img/logo-long.png");
+    background-size: auto 230px;
+    background-position: center 20px;
+    background-repeat: no-repeat;
 
     #time, #weather {
         font-family: $navText;
         position: absolute;
-        bottom: 2px;
         font-size: 2em;
+        @include transition(all .5s ease);
     }
     #time {
-        left: 120px;
-        text-align: left;
-    }
-    #weather {
-        right: 120px;
+        top: 30px;
+        right: 0px;
         text-align: right;
     }
-
-    #logo {
-        width: 100%;
-        height: 210px;
-        display: inline-block;
-        background-image: url("assets/img/logo-long.png");
-        background-size: contain;
-        background-position: center center;
-        background-repeat: no-repeat;
-        margin-top: 20px;
+    #weather {
+        top: 0px;
+        right: 0px;
+        text-align: right;
+    }
+    @media (min-width: $screen-md-max) {
+        #time {
+            top: 85%;
+            left: 5%;
+            right: 100%;
+            bottom: 2px;
+            text-align: left;
+        }
+        #weather {
+            top: 85%;
+            right: 5%;
+            bottom: 2px;
+            text-align: right;
+        }
     }
 
     &::after { //Header Border
