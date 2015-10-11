@@ -33,7 +33,9 @@ Template.paper.onRendered(function () {
       }
     });
     Session.set('mainArticle', BA);
-    articleLoaded.push(BA.rId);
+		if(BA){
+    	articleLoaded.push(BA.rId);
+		}
     var data = articles.find({},{sort: { score : -1 }, reactive: true}).fetch();
     for (child in data) {
       if (articleLoaded.indexOf(data[child].rId) < 0) {

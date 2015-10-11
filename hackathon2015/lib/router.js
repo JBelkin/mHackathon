@@ -1,9 +1,6 @@
-/*	Router.route('/', function() {
-		this.render('mainLayout');
-	});*/
-
 	Router.route('/', {
 		name: 'mainLayout',
+		loadingTemplate: 'loader',
 		waitOn:function(){
 			return [
 				Meteor.subscribe('articles')

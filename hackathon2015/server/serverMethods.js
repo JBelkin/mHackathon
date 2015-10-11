@@ -1,3 +1,14 @@
+if (Meteor.isServer) {
+  Meteor.startup(function () {
+    Meteor.call('getRedditJson');
+		
+		Meteor.setInterval(function() {
+			Meteor.call('getRedditJson');
+		}, 600000)
+  });
+}
+
+
 Meteor.methods({
   getRedditJson: function () { //setInterval
     this.unblock();
@@ -65,11 +76,24 @@ Meteor.methods({
           data[child].data.thumbnail = imageUrl;
         }
         //get score
-        data[child].data.weightedScore = Meteor.call('scorePost',subRedditScore,subRedditComments, data[child].data.score, data[child].data.num_comments, data[child].data.created_utc)
+        data[child].data.weightedScore = Meteor.call('scorePost',subRedditScore,subRedditComments, data[child].data.score, data[child].data.num_comments, data[child].data.created_utc);
         //commit to db
         Meteor.call('addRedditData', topic, data[child].data);
       } else { //Article match was found
-
+					//Updating the record - new rScore, 				
+					if (data[child].data.thumbnail == "" || data[child].data.thumbnail == null || !data[child].data.preview) { //Has no picture, Search google images using title
+						//console.log(encodeURIComponent('"'+data[child].data.title+'"'));
+						var imageJSON = HTTP.get('https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=' + encodeURIComponent('"' + data[child].data.title + '"'));
+						var parse = JSON.parse(imageJSON.content);
+						if (parse.responseData) {
+							var imageUrl = parse.responseData.results[0].unescapedUrl;
+						} else {
+							var imageUrl = null
+						}
+						data[child].data.thumbnail = imageUrl;
+					}
+					data[child].data.weightedScore = Meteor.call('scorePost',subRedditScore,subRedditComments, data[child].data.score, data[child].data.num_comments, data[child].data.created_utc);
+					Meteor.call('updateRedditData', topic, data[child].data);
       }
     }
     //check if article id || url exists.  for loop data var. if not found add to dataToCheck else push to dataToUpdate
@@ -144,6 +168,27 @@ Meteor.methods({
     article.previewText != null ? articleObj.previewText = article.previewText : '';
     articles.insert(articleObj);
   },
+	updateRedditData: function (topic, article) { //add or edit reddit data into MongoDB
+
+    var articleObj = {
+      rId: article.id,
+      topic: topic,
+      title: article.title,
+      url: article.url,
+      thumbnail: article.thumbnail,
+      permalink: article.permalink,
+      rDate: article.created_utc,
+      domain: article.domain,
+      subreddit_id: article.subreddit_id,
+      preview: article.preview,
+      date: new Date().getTime(),
+      rScore: article.score,
+      score: article.weightedScore
+    };
+    article.previewText != null ? articleObj.previewText = article.previewText : '';
+    var old = articles.findOne({rId: articleObj.rId});
+		articles.update(old, {articleObj});
+  },	
   getArticleDetails: function (article) {
     this.unblock();
     var supportedPlatforms = [
